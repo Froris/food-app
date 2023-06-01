@@ -1,5 +1,5 @@
 {
   "port": 80,
   "mongoUri": "mongodb+srv://Vladislav:H2OTfU99QsBafDZ6@cluster0.zvn7z4t.mongodb.net/?retryWrites=true&w=majority",
-  "baseUrl": "https://food-app-1cth.onrender.com"
+  "baseUrl": "http://localhost:5000"
 }
