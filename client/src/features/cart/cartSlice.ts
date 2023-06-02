@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
 
       if (order) {
         order.amount = amount;
-        order.totalOrderPrice = order.price * (amount || 0); // Если amount === null, установите 0
+        order.totalOrderPrice = order.price * (amount || 0);
 
         state.totalPrice = state.orders.reduce(
           (sum, dish) => sum + dish.totalOrderPrice,
