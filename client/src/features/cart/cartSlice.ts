@@ -48,18 +48,16 @@ export const cartSlice = createSlice({
       const order = state.orders.find((item) => item.orderId === orderId);
 
       if (order) {
-        order.amount = amount;
-        order.totalOrderPrice = order.price * (amount || 0);
+        const newAmount = amount === 0 ? 1 : amount;
+        order.amount = newAmount;
+        order.totalOrderPrice = order.price * newAmount;
 
         state.totalPrice = state.orders.reduce(
           (sum, dish) => sum + dish.totalOrderPrice,
           0
         );
 
-        state.totalAmount =
-          amount !== null
-            ? state.totalAmount + (amount - order.amount)
-            : state.totalAmount;
+        state.totalAmount = newAmount;
       }
     },
 

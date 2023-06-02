@@ -39,7 +39,7 @@ export const OrdersList = memo(
                       dispatch(
                         changeAmount({
                           orderId: item.orderId,
-                          amount: e.target.value,
+                          amount: +e.target.value,
                         })
                       )
                     }
