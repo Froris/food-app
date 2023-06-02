@@ -10,8 +10,7 @@ import { memo } from 'react';
 import { OrderItem } from './OrderItem';
 import { OrderedDish } from '../features/cart/types';
 import { useAppDispatch } from '../hooks/storeHooks';
-import { changeAmount } from '../features/cart/cartSlice';
-import { removeFromCart } from '../features/cart/cartSlice';
+import { changeAmount, removeFromCart } from '../features/cart/cartSlice';
 
 export const OrdersList = memo(
   ({ ordersList }: { ordersList: OrderedDish[] }) => {
@@ -40,7 +39,7 @@ export const OrdersList = memo(
                       dispatch(
                         changeAmount({
                           orderId: item.orderId,
-                          amount: +e.target.value,
+                          amount: e.target.value,
                         })
                       )
                     }

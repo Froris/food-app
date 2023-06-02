@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../../store';
 import { CartState } from './types';
 import { Dish } from '../restaurantsMenu/types';
@@ -45,25 +45,21 @@ export const cartSlice = createSlice({
       action: PayloadAction<{ orderId: string; amount: number }>
     ) => {
       const { amount, orderId } = action.payload;
-
       const order = state.orders.find((item) => item.orderId === orderId);
 
-      if (order && amount >= 1) {
-        const isAddAmount = amount > order.amount;
-
+      if (order) {
         order.amount = amount;
-        order.totalOrderPrice = isAddAmount
-          ? (order.totalOrderPrice += order.price)
-          : (order.totalOrderPrice -= order.price);
+        order.totalOrderPrice = order.price * (amount || 0); // Если amount === null, установите 0
 
         state.totalPrice = state.orders.reduce(
           (sum, dish) => sum + dish.totalOrderPrice,
           0
         );
 
-        state.totalAmount = isAddAmount
-          ? state.totalAmount++
-          : state.totalAmount--;
+        state.totalAmount =
+          amount !== null
+            ? state.totalAmount + (amount - order.amount)
+            : state.totalAmount;
       }
     },
 

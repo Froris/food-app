@@ -1,12 +1,12 @@
 import {
   AppBar,
+  Badge,
+  Box,
+  Button,
+  Container,
+  Divider,
   Toolbar,
   Typography,
-  Box,
-  Container,
-  Badge,
-  Button,
-  Divider,
 } from '@mui/material';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import FastfoodRoundedIcon from '@mui/icons-material/FastfoodRounded';
