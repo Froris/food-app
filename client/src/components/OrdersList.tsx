@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { memo } from 'react';
+import { ChangeEvent, FocusEvent, memo } from 'react';
 import { OrderItem } from './OrderItem';
 import { OrderedDish } from '../features/cart/types';
 import { useAppDispatch } from '../hooks/storeHooks';
@@ -15,6 +15,29 @@ import { changeAmount, removeFromCart } from '../features/cart/cartSlice';
 export const OrdersList = memo(
   ({ ordersList }: { ordersList: OrderedDish[] }) => {
     const dispatch = useAppDispatch();
+
+    function handleOnChange(
+      e: ChangeEvent<HTMLInputElement>,
+      item: OrderedDish
+    ) {
+      dispatch(
+        changeAmount({
+          orderId: item.orderId,
+          amount: +e.target.value,
+        })
+      );
+    }
+
+    function handleOnBlur(e: FocusEvent<HTMLInputElement>, item: OrderedDish) {
+      if (e.target.value === '' || +e.target.value <= 0) {
+        dispatch(
+          changeAmount({
+            orderId: item.orderId,
+            amount: 1,
+          })
+        );
+      }
+    }
 
     return (
       <Box
@@ -35,15 +58,13 @@ export const OrdersList = memo(
                     {item.name}
                   </Typography>
                   <TextField
-                    onChange={(e) =>
-                      dispatch(
-                        changeAmount({
-                          orderId: item.orderId,
-                          amount: +e.target.value,
-                        })
-                      )
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      handleOnChange(e, item)
                     }
-                    value={item.amount}
+                    onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                      handleOnBlur(e, item)
+                    }
+                    value={item.amount <= 0 ? '' : item.amount}
                     id='outlined-number'
                     label='Amount'
                     type='number'
