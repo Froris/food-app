@@ -47,17 +47,19 @@ export const cartSlice = createSlice({
       const { amount, orderId } = action.payload;
       const order = state.orders.find((item) => item.orderId === orderId);
 
-      if (order) {
-        const newAmount = amount === 0 ? 1 : amount;
-        order.amount = newAmount;
-        order.totalOrderPrice = order.price * newAmount;
+      if (order && amount > 0) {
+        order.amount = amount;
+        order.totalOrderPrice = order.price * amount;
 
         state.totalPrice = state.orders.reduce(
           (sum, dish) => sum + dish.totalOrderPrice,
           0
         );
 
-        state.totalAmount = newAmount;
+        state.totalAmount = amount;
+      } else if (order && amount <= 0) {
+        order.amount = 0;
+        state.totalAmount = 0;
       }
     },
 

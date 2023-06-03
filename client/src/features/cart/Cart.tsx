@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, Typography } from '@mui/material';
 import { CartForm } from '../../components/CartForm';
-import { useState, useEffect, ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { OrdersList } from '../../components/OrdersList';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { resetCart, selectOrders, selectTotalPrice } from './cartSlice';
